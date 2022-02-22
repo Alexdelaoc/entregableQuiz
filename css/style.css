@@ -69,11 +69,27 @@ main{
     color: #FDFFFC;;
   }
 
+  div{
+    background-color:;
+    margin: 2em 0;
+  }
+
+  fieldset{
+    text-align: center;
+  }
+
+  input{
+  }
+
+  button{
+    color: black;
+  }
+
   @media screen and (min-width: 600px){
     
     .textoIntro{
         font-size: x-large;
-    } 
+    }
     
   }
 

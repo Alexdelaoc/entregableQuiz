@@ -1,86 +1,71 @@
 //Creamos un array de objetos con las respuestas de las preguntas para su posterior comparación con las respuestas dadas.
 const cheatSheet = ["pong", "luigi", "doce", "cuatromandos", "topgear"];
+let givenAnswers = [];
 
-
+//Añadimos el eventListener con su consiguiente función, que dictará el comportamiento del formulario.
 document.querySelector("form").addEventListener("submit", function (event) {
     event.preventDefault(); //Pausa el envío del formulario (Doctor Strange)
 
-//Creamos un array en el que introducir las respuestas dadas
-    const givenAnswers = [];
+    //Creamos un array en el que introducir las respuestas dadas
+    givenAnswers = [];
+    //Definimos las variables y pusheamos los valores de los inputs en el array vacío
+    var checkRadio = document.querySelector('input[name="antiguo"]:checked');
+        
+    if (checkRadio != null) {
+        givenAnswers.push(checkRadio.value);
+    } else console.log("No one selected");
 
-//Definimos las variables que indiquen la longitud del array de la pregunta para, posteriormente, iterarlos en un bucle.
-    const question1Length = document.getElementByClassName("pregunta1").length;
-    const question2Length = document.getElementByClassName("pregunta2").length;
-    const question3Length = document.getElementByClassName("pregunta3").length;
-    const question4Length = document.getElementByClassName("pregunta4").length;
 
-//Creamos bucles for que iteren cada fieldset del formulario, uno por pregunta. *****HAY QUE REFACTORIZAR ESTO*****
-    for (let i = 0; i < question1Length; i++) {
-        if (document.getElementByTagName("input")[i].checked) {
-            givenAnswers.push("pacman");
-        } else if (document.getElementByTagName("input")[i + 1].checked){
-            givenAnswers.push("tetris");
-        } else if (document.getElementByTagName("input")[i + 2].checked){
-            givenAnswers.push("pong");
-        } else if (document.getElementByTagName("input")[i + 3].checked){
-            givenAnswers.push("mario");
+    var checkRadio = document.querySelector('input[name="hermano"]:checked');
+
+    if (checkRadio != null) {
+        givenAnswers.push(checkRadio.value);
+    } else console.log("No one selected");
+
+
+    var checkRadio = document.querySelector('input[name="luchadores"]:checked');
+
+    if (checkRadio != null) {
+        givenAnswers.push(checkRadio.value);
+    } else console.log("No one selected");
+
+
+    var checkRadio = document.querySelector('input[name="mandos"]:checked');
+
+    if (checkRadio != null) {
+        givenAnswers.push(checkRadio.value);
+    } else console.log("No one selected");
+
+
+    var checkRadio = document.querySelector('input[name="carreras"]:checked');
+
+    if (checkRadio != null) {
+        givenAnswers.push(checkRadio.value);
+    } else console.log("No one selected");
+
+    //Comparamos los arrays givenAnswers y cheatSheet.
+    
+    for (let i = 0; i < cheatSheet.length; i++) {
+    
+        if (givenAnswers[i] == cheatSheet[i]) {
+        // funciona porque la cantidad de divs con clase correct es la misma que elementos hay en los array givenAnswers y cheatSheet.
+        document.querySelectorAll('.correct')[i].style.backgroundColor = 'green';
+        }  
+    }
+    
+    let inputs = document.querySelectorAll("input");
+    let incorrectos = [];
+
+    for (let j = 0; j < inputs.length; j++){
+        if (inputs[j].value == "incorrect"){
+            incorrectos.push(inputs[j]);
         }
     }
 
-    for (let i = 0; i < question2Length; i++) {
-        if (document.getElementByTagName("input")[i].checked) {
-            givenAnswers.push("luigi");
-        } else if (document.getElementByTagName("input")[i + 1].checked){
-            givenAnswers.push("mariojr");
-        } else if (document.getElementByTagName("input")[i + 2].checked){
-            givenAnswers.push("honguito");
-        } else if (document.getElementByTagName("input")[i + 3].checked){
-            givenAnswers.push("marioverde");
+    for (let k = 0; k < incorrectos.length; k++) {
+        // funciona porque la cantidad de divs con clase incorrect es la misma que inputs con value incorrect se han pusheado en el array incorrecto
+        if (incorrectos[k].checked){
+            document.querySelectorAll(".incorrect")[k].style.backgroundColor = 'red';
         }
     }
-
-    for (let i = 0; i < question3Length; i++) {
-        if (document.getElementByTagName("input")[i].checked) {
-            givenAnswers.push("doce");
-        } else if (document.getElementByTagName("input")[i + 1].checked){
-            givenAnswers.push("ocho");
-        } else if (document.getElementByTagName("input")[i + 2].checked){
-            givenAnswers.push("cuatro");
-        } else if (document.getElementByTagName("input")[i + 3].checked){
-            givenAnswers.push("dieciseis");
-        }
-    }
-
-    for (let i = 0; i < question4Length; i++) {
-        if (document.getElementByTagName("input")[i].checked) {
-            givenAnswers.push("dosmandos");
-        } else if (document.getElementByTagName("input")[i + 1].checked){
-            givenAnswers.push("unomandos");
-        } else if (document.getElementByTagName("input")[i + 2].checked){
-            givenAnswers.push("cuatromandos");
-        } else if (document.getElementByTagName("input")[i + 3].checked){
-            givenAnswers.push("seismandos");
-        }
-    }
-
-    for (let i = 0; i < question5Length; i++) {
-        if (document.getElementByTagName("input")[i].checked) {
-            givenAnswers.push("rtype");
-        } else if (document.getElementByTagName("input")[i + 1].checked){
-            givenAnswers.push("snake");
-        } else if (document.getElementByTagName("input")[i + 2].checked){
-            givenAnswers.push("frogger");
-        } else if (document.getElementByTagName("input")[i + 3].checked){
-            givenAnswers.push("topgear");
-        }
-    }
-
-//Comparamos con un ternario el array cheatSheet con el array givenAnswers. De momento sólo colocaremos un console.log para comprobar si el código funciona.
-
-    for (let j = 0; j < givenAnswers.length; j++) {
-        cheatSheet[j] == givenAnswers ? console.log("respuesta " + (j + 1) + "correcta.") : console.log("respuesta " + (j + 1) + "incorrecta.") ;
-    }
-
-
-
-})
+});
